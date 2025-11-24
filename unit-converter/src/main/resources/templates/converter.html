@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Unit Converter</title>
+</head>
+<body>
+<h1>Unit Converter</h1>
+
+<form th:action="@{/converter}" th:object="${conversionRequest}" method="post">
+    <input type="number" th:field="*{value}" placeholder="Value" required/>
+
+    <!-- From Unit Dropdown -->
+    <select id="fromUnit" th:field="*{fromUnit}" onchange="updateToUnits()">
+        <optgroup label="Length">
+            <option th:each="unit : ${lengthUnits}" th:value="${unit}" th:text="${unit}" data-category="length"></option>
+        </optgroup>
+        <optgroup label="Mass">
+            <option th:each="unit : ${massUnits}" th:value="${unit}" th:text="${unit}" data-category="mass"></option>
+        </optgroup>
+        <optgroup label="Volume">
+            <option th:each="unit : ${volumeUnits}" th:value="${unit}" th:text="${unit}" data-category="volume"></option>
+        </optgroup>
+        <optgroup label="Temperature">
+            <option th:each="unit : ${temperatureUnits}" th:value="${unit}" th:text="${unit}" data-category="temperature"></option>
+        </optgroup>
+        <optgroup label="Time">
+            <option th:each="unit : ${timeUnits}" th:value="${unit}" th:text="${unit}" data-category="time"></option>
+        </optgroup>
+        <optgroup label="Power">
+            <option th:each="unit : ${powerUnits}" th:value="${unit}" th:text="${unit}" data-category="power"></option>
+        </optgroup>
+    </select>
+
+    <!-- To Unit Dropdown -->
+    <select id="toUnit" th:field="*{toUnit}">
+
+        <!-- options will be filtered by JS -->
+    </select>
+
+    <button type="submit">Convert</button>
+</form>
+
+
+<div th:if="${response != null}">
+    <p th:text="'Converted ' + ${response.originalValue} + ' ' + ${response.fromUnit} +
+                 ' → ' + ${response.convertedValue} + ' ' + ${response.toUnit}"></p>
+</div>
+
+<div th:if="${error != null}">
+    <p th:text="${error}" style="color:red;"></p>
+</div>
+<script>
+    // store all "To Unit" options
+    const toUnitSelect = document.getElementById('toUnit');
+    const fromUnitSelect = document.getElementById('fromUnit');
+
+    // clone all options from the original "From Unit" dropdown to "To Unit"
+    const allOptions = Array.from(fromUnitSelect.options).map(opt => {
+        return {
+            value: opt.value,
+            text: opt.text,
+            category: opt.getAttribute('data-category')
+        };
+    });
+
+function updateToUnits() {
+    const selectedFrom = fromUnitSelect.options[fromUnitSelect.selectedIndex];
+    const selectedCategory = selectedFrom.getAttribute('data-category');
+
+    toUnitSelect.innerHTML = '';
+
+    allOptions.forEach(opt => {
+        if (opt.category === selectedCategory) {
+            const optionElem = document.createElement('option');
+            optionElem.value = opt.value;
+            optionElem.text = opt.text;
+            toUnitSelect.appendChild(optionElem);
+        }
+    });
+
+    // select first option by default
+    if(toUnitSelect.options.length > 0) {
+        toUnitSelect.selectedIndex = 0;
+    }
+}
+
+
+    // initialize "To Unit" dropdown on page load
+    window.onload = updateToUnits;
+</script>
+
+</body>
+</html>
