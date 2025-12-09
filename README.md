@@ -20,9 +20,9 @@ A simple **Spring Boot + Thymeleaf** web application that converts values betwee
 ---
 
 ## Screenshots
-![Input Form](unit-converter/unit-converter/src/main/resources/static/Screenshot-1.png)
-![Output Form](unit-converter/unit-converter/src/main/resources/static/Screenshot-2.png)
-![Output Form](unit-converter/unit-converter/src/main/resources/static/Screenshot-3.png)
+![Input Form](unit-converter/src/main/resources/static/Screenshot-1.png)
+![Output Form](unit-converter/src/main/resources/static/Screenshot-2.png)
+![Output Form](unit-converter/src/main/resources/static/Screenshot-3.png)
 
 ---
 
@@ -33,3 +33,4 @@ A simple **Spring Boot + Thymeleaf** web application that converts values betwee
 - **Thymeleaf** for templating  
 - **Maven** for dependency management  
 - **HTML/CSS/JavaScript** for frontend  
+
