@@ -34,3 +34,6 @@ A simple **Spring Boot + Thymeleaf** web application that converts values betwee
 - **Maven** for dependency management  
 - **HTML/CSS/JavaScript** for frontend  
 
+---
+
+This project was built based on the Unit Converter challenge from [roadmap.sh](https://roadmap.sh/projects/unit-converter).
